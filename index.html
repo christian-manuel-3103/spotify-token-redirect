@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Spotify Redirect</title>
+    <script type="text/javascript">
+      window.onload = function () {
+        const hash = window.location.hash.substring(1);
+        const params = new URLSearchParams(hash);
+        const accessToken = params.get("access_token");
+
+        if (accessToken) {
+          // 👇 Your app's custom URI scheme
+          window.location.href = "melodate://callback#access_token=" + accessToken;
+        } else {
+          document.body.innerText = "Access token not found.";
+        }
+      };
+    </script>
+  </head>
+  <body>
+    <p>Redirecting...</p>
+  </body>
+</html>
