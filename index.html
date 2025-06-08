@@ -3,17 +3,18 @@
   <head>
     <title>Spotify Redirect</title>
     <script type="text/javascript">
-      window.onload = function() {
-        const hash = window.location.hash.substr(1); // remove the #
+      window.onload = function () {
+        const hash = window.location.hash.substring(1);
         const params = new URLSearchParams(hash);
-        const accessToken = params.get('access_token');
+        const accessToken = params.get("access_token");
+
         if (accessToken) {
-          // ✅ Use ? instead of # to redirect with query parameters
-          window.location.href = 'melodate://callback?access_token=' + accessToken;
+          // ✅ Correct format: use ? not #
+          window.location.href = "melodate://callback?access_token=" + accessToken;
         } else {
           document.body.innerHTML = "<h3>Error: Access token not found in URL.</h3>";
         }
-      }
+      };
     </script>
   </head>
   <body>
