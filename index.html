@@ -1,28 +1,23 @@
 <!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8" />
-  <title>Spotify Redirect</title>
-  <script>
-    window.onload = function() {
-      const hash = window.location.hash.substr(1);
-      const params = new URLSearchParams(hash);
-      const token = params.get('access_token');
-
-      if (token) {
-        // Show a message (optional)
-        document.body.innerHTML = '<h2>Login successful! Redirecting...</h2>';
-
-        // Redirect back to your app with the token in the URL fragment
-        // Make sure the scheme and host exactly match your app’s redirect URI
-        window.location.href = `melodate://callback#access_token=${token}`;
-      } else {
-        document.body.innerHTML = '<h2>Error: Access token not found.</h2>';
+<html>
+  <head>
+    <title>Spotify Redirect</title>
+    <script type="text/javascript">
+      // This script extracts the access token from URL hash and redirects back to the app with a custom scheme
+      window.onload = function() {
+        const hash = window.location.hash.substr(1); // remove the #
+        const params = new URLSearchParams(hash);
+        const accessToken = params.get('access_token');
+        if (accessToken) {
+          // Redirect to your app scheme with access_token in fragment
+          window.location.href = 'melodate://callback#access_token=' + accessToken;
+        } else {
+          document.body.innerHTML = "<h3>Error: Access token not found in URL.</h3>";
+        }
       }
-    };
-  </script>
-</head>
-<body>
-  <h2>Loading...</h2>
-</body>
+    </script>
+  </head>
+  <body>
+    <h3>Processing login...</h3>
+  </body>
 </html>
